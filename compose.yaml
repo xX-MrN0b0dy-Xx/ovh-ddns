@@ -1,0 +1,13 @@
+services:
+  yourdomain-ddns:
+    image: ovh-ddns
+    container_name: yourdomain-ddns
+    restart: always
+    environment:
+      HOSTNAME: "${HOSTNAME}"
+      LOGIN: "${LOGIN}"
+      PASSWORD: "${PASSWORD}"
+      LOG_TYPE: file
+    volumes:
+      - /srv/docker/log/net-sec-stack/yourdomain-ddns:/var/log/scripts
+      - /etc/localtime:/etc/localtime:ro
