@@ -1,6 +1,6 @@
 services:
   yourdomain-ddns:
-    image: ovh-ddns
+    image:
     container_name: yourdomain-ddns
     restart: always
     environment:
