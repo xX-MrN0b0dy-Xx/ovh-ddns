@@ -37,6 +37,4 @@ if [ "$LOG_TYPE" = "file" ]; then
 else
     printf "[%s] - Server replied: %s\n" "$CURRENT_DATETIME" "$OUTPUT"
 fi
-
-printf "\n\n\n"
 exit 0
