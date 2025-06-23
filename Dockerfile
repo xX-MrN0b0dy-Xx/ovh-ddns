@@ -6,12 +6,10 @@ RUN apk add --no-cache curl
 ENV HOSTNAME=none \
     LOGIN=none \
     PASSWORD=none \
-    LOG_TYPE=STDOUT
+    LOG_TYPE=STDOUT \
+    REFRESH_TIME=5
 
-# Script location
-COPY updater.sh /home/updater.sh
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 
-RUN chmod +x /home/updater.sh
-
-# Infinite loop: run script every 5 minutes
-CMD ["sh", "-c", "while true; do /home/updater.sh; sleep 300; done"]

@@ -7,7 +7,8 @@ services:
       HOSTNAME: "${HOSTNAME}"
       LOGIN: "${LOGIN}"
       PASSWORD: "${PASSWORD}"
-      LOG_TYPE: file
+      LOG_TYPE: 'file'
+      REFRESH_TIME: 5
     volumes:
       - /srv/docker/log/net-sec-stack/yourdomain-ddns:/var/log/scripts
       - /etc/localtime:/etc/localtime:ro
