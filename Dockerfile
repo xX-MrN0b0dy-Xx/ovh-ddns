@@ -1,5 +1,11 @@
 FROM alpine:latest
 
+LABEL maintainer="github@xX-MrN0b0dy-Xx" \
+      org.opencontainers.image.authors="github@xX-MrN0b0dy-Xx" \
+      org.opencontainers.image.source="https://github.com/xX-MrN0b0dy-Xx/ovh-ddns" \
+      org.opencontainers.image.title="ovh-ddns" \
+      org.opencontainers.image.description="A simple but effective containerized implementation of my script to update the Dynamic Public IP utilizing the OVH DDNS Service DynHost"
+
 RUN apk add --no-cache curl
 
 # Default environment variables

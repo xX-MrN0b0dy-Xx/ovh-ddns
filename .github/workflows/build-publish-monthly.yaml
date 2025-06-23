@@ -20,23 +20,30 @@ jobs:
       - name: Normalize image name to lowercase
         run: |
           IMAGE_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
-
-      - name: Bump and commit new version to repo
-        run: |
-          VERSION_FILE=".version"
-          INCREMENT=$(echo $VERSION_FILE | sed 's/v//' | awk -F. '{printf "%d.%d", $1, $2+1}')
-          NEXT_VERSION="v$INCREMENT"
-          echo "$NEXT_VERSION" > $VERSION_FILE
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add .version
-          git commit -m "Bump version to $NEXT_VERSION"
-          git tag $NEXT_VERSION
-          git push origin main --follow-tags
+          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV #the syntax cuz u literally adding this variable written like this
 
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Read, bump and commit new version #need to run after checkout
+        run: |
+          # Read version and upgrade
+          VERSION_FILE=".version"
+          VERSION=$(cat .version)
+          INCREMENT=$(echo $VERSION | sed 's/v//' | awk -F. '{printf "%d.%d", $1, $2+1}')
+          VERSION="v$INCREMENT"
+          echo "$VERSION" > $VERSION_FILE
+
+          # Propagate to GITHUB_ENV
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV" #the syntax cuz u literally adding this variable written like this
+
+          # Commit new version
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .version
+          git commit -m "Bump version to $VERSION"
+          git tag $VERSION
+          git push origin main --follow-tags
 
       # Install the cosign tool
       # https://github.com/sigstore/cosign-installer
@@ -60,10 +67,6 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Read version
-        id: versioning
-        run: echo "VERSION=$(<.version)" >> $GITHUB_ENV
 
       # Build and push Docker image with Buildx also taking into account the tags I want
       # https://github.com/docker/build-push-action
