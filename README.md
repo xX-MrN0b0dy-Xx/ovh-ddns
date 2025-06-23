@@ -1,8 +1,6 @@
 > [!NOTE]
 >
-> Docker image not yet published, due to lack of time.
->
-> In the following days I will publish the image to *ghcr.io* and I will also automate the publish with GitHub Actions to have always the latest Alpine base image, but currently I don't have the time. To locally build the image, just read below
+> A GitHub Action that push a new monthly image has been setup only to always have the latest Alpine base image
 
 A simple but effective containerized implementation of my script ([visible at this link](https://gist.github.com/xX-MrN0b0dy-Xx/74d3d769cad9bd7d905ce7ce33c034bb)) to update the Dynamic Public IP utilizing the OVH DDNS Service DynHost.
 
