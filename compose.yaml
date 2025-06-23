@@ -1,6 +1,6 @@
 services:
   yourdomain-ddns:
-    image:
+    image: ghcr.io/xx-mrn0b0dy-xx/ovh-ddns:latest
     container_name: yourdomain-ddns
     restart: always
     environment:
