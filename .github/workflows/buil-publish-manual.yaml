@@ -21,7 +21,10 @@ jobs:
           IMAGE_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
 
-      - name: Bump and commit new version to repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Bump and commit new version to repo #need to run after checkout
         run: |
           VERSION_FILE=".version"
           INCREMENT=$(echo $VERSION_FILE | sed 's/v//' | awk -F. '{printf "%d.%d", $1, $2+1}')
@@ -33,9 +36,6 @@ jobs:
           git commit -m "Bump version to $NEXT_VERSION"
           git tag $NEXT_VERSION
           git push origin main --follow-tags
-
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
       # Install the cosign tool
       # https://github.com/sigstore/cosign-installer
