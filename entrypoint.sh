@@ -21,7 +21,7 @@ if [ "$LOG_TYPE" != "file" ] && [ "$LOG_TYPE" != "STDOUT" ]; then
 fi
 
 if [ -z "$REFRESH_TIME" ] || ! echo "$REFRESH_TIME" | grep -Eq '^[0-9]+$'; then
-    echo "[Error] REFRESH_TIME must be set and a positive integer (in seconds or minutes)."
+    echo "[Error] REFRESH_TIME must be set and a positive integer (in minutes)."
     exit 1
 fi
 
@@ -34,8 +34,11 @@ if [ "$LOG_TYPE" = "file" ]; then
     touch "$PATH_LOG" #create `.log` if not present yet
 fi
 
+# Utilities outside loop definition
+SLEEP_TIME=`expr "$REFRESH_TIME" \* 60`
+
 while true; do
-    # Utilities definition
+    # Utilities inside loop definition
     CURRENT_DATETIME=$(date -R)
     IP=$(curl -s ifconfig.co)
 
@@ -45,7 +48,7 @@ while true; do
         printf "[%s] - Server replied: %s\n" "$CURRENT_DATETIME" "$OUTPUT" >> "$PATH_LOG"
     fi
     printf "[INFO] [%s] - Server replied: %s\n" "$CURRENT_DATETIME" "$OUTPUT"
-    printf "[INFO] - Sleeping for %s seconds...\n" "$REFRESH_TIME"
-    sleep "$REFRESH_TIME"
+    printf "[INFO] - Sleeping for %s minutes...\n" "$REFRESH_TIME"
+    sleep "$SLEEP_TIME"
 done
 exit 0

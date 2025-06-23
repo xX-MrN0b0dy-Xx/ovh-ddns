@@ -9,7 +9,7 @@ The container exposes the following `ENV` variables, that can be seen also from 
 - `LOGIN: "${LOGIN}"`
 - `PASSWORD: "${PASSWORD}"`
 - `LOG_TYPE: 'file'`: values here can be either `'file'` or `'STDOUT'`. Nothing else is accepted. Fallback value if omitted is `'STDOUT'`.
-- `REFRESH_TIME: 5`: values here must be positive integers. The IP update script is run every `REFRESH_TIME` minutes. Fallback value if omitted is `5`.
+- `REFRESH_TIME: 5`: values here must be positive integers *in minutes*. The IP update script is run every `REFRESH_TIME` minutes. Fallback value if omitted is `5`.
 
 ### Locally build the image
 The image is available in the *GitHub Container Registry*, but if you want to locally build it in order to debug, or improve or whatever, just modify the docker compose substituting the line `image:` with:
