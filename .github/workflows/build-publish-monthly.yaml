@@ -42,8 +42,7 @@ jobs:
           git config user.email "github-actions@github.com"
           git add .version
           git commit -m "Bump version to $VERSION"
-          git tag $VERSION
-          git push origin main --follow-tags
+          git push origin main
 
       # Install the cosign tool
       # https://github.com/sigstore/cosign-installer
