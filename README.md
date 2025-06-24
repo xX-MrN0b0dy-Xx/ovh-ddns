@@ -4,12 +4,23 @@
 
 A simple but effective containerized implementation of my script ([visible at this link](https://gist.github.com/xX-MrN0b0dy-Xx/74d3d769cad9bd7d905ce7ce33c034bb)) to update the Dynamic Public IP utilizing the OVH DDNS Service DynHost.
 
-The container exposes the following `ENV` variables, that can be seen also from [`compose.yaml`](./compose.yaml):
-- `HOSTNAME: "${HOSTNAME}"`
-- `LOGIN: "${LOGIN}"`
-- `PASSWORD: "${PASSWORD}"`
-- `LOG_TYPE: 'file'`: values here can be either `'file'` or `'STDOUT'`. Nothing else is accepted. Fallback value if omitted is `'STDOUT'`.
-- `REFRESH_TIME: 5 #m`: values here must be positive integers *in minutes*. The IP update script is run every `REFRESH_TIME` minutes. Fallback value if omitted is `5`.
+### Environment Variables
+| Variable        | Description                                                                                   |
+|-----------------|-----------------------------------------------------------------------------------------------|
+| `HOSTNAME`      | OVH domain                                                                       |
+| `LOGIN`         | DynHost username                                                                               |
+| `PASSWORD`      | DynHost password                                                                              |
+| `LOG_TYPE`      | Values can be either `'file'` or `'STDOUT'`. Nothing else is accepted. Default is `'STDOUT'`. |
+| `REFRESH_TIME`  | Must be a positive integer in minutes. Script runs every `REFRESH_TIME` minutes. Default is `5`. |
+
+### Supported architectures
+| Architecture | Supported?|
+|--------------|-----------|
+| `x86`       | YES    |
+| `x86_64`      | YES    |
+| `armv7`        | YES    |
+| `aarch64`      | YES    |
+
 
 ### Locally build the image
 The image is available in the *GitHub Container Registry*, but if you want to locally build it in order to debug, or improve or whatever, just modify the docker compose substituting the line `image:` with:
@@ -20,11 +31,7 @@ The image is available in the *GitHub Container Registry*, but if you want to lo
     image: ovh-ddns:local-build
 ```
 
-### Extra
-
-It should be simple to create a DynHost user from OVH Control Panel. However, if you need help, read this:
-
-<details>
+### Extra: Create a DynHost user from OVH Control Panel
 
 From OVH dashboard you can create the DynHost user: 
 1. Domain names/yourdomain.ovh/DynHost section
@@ -33,5 +40,3 @@ From OVH dashboard you can create the DynHost user:
 4. Then Add a DynHost record with the same subdomain and the current IP of the host
 
 > Remember that for some TLD, redirection to domain.TLD is not possible (ie `.it` doesn't allow this, so if I need to redirect to a domain.it, I'd create `dyn.domain.it` and redirect to it. Then I'll redirect any subdomain to `dyn.domain.it` and I have my Nginx reverse proxy that listen for `dyn.domain.it`)
-
-</details>

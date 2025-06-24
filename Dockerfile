@@ -1,7 +1,6 @@
 FROM alpine:latest
 
-LABEL maintainer="github@xX-MrN0b0dy-Xx" \
-      org.opencontainers.image.authors="github@xX-MrN0b0dy-Xx" \
+LABEL org.opencontainers.image.authors="github@xX-MrN0b0dy-Xx" \
       org.opencontainers.image.source="https://github.com/xX-MrN0b0dy-Xx/ovh-ddns" \
       org.opencontainers.image.title="ovh-ddns" \
       org.opencontainers.image.description="A simple but effective containerized implementation of my script to update the Dynamic Public IP utilizing the OVH DDNS Service DynHost"
@@ -9,9 +8,9 @@ LABEL maintainer="github@xX-MrN0b0dy-Xx" \
 RUN apk add --no-cache curl
 
 # Default environment variables
-ENV HOSTNAME=none \
-    LOGIN=none \
-    PASSWORD=none \
+ENV HOSTNAME="" \
+    LOGIN="" \
+    PASSWORD="" \
     LOG_TYPE=STDOUT \
     REFRESH_TIME=5
 

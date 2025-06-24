@@ -48,7 +48,7 @@ while true; do
         printf "[%s] - Server replied: %s\n" "$CURRENT_DATETIME" "$OUTPUT" >> "$PATH_LOG"
     fi
     printf "[INFO] [%s] - Server replied: %s\n" "$CURRENT_DATETIME" "$OUTPUT"
-    printf "[INFO] - Sleeping for %s minutes...\n" "$REFRESH_TIME"
+    printf "[INFO] [%s] - Sleeping for %s minutes...\n" "$REFRESH_TIME"
     sleep "$SLEEP_TIME"
 done
 exit 0
