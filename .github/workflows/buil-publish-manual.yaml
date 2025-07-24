@@ -74,9 +74,23 @@ jobs:
         with:
           context: .
           push: true
+          platforms: linux/amd64
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and push Docker image arm64
+        id: build-and-push-arm64
+        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
+        with:
+          context: .
+          push: true
+          platforms: linux/arm64
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest-arm64
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}-arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -103,5 +117,7 @@ jobs:
             Docker image published:
             - `${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}`
             - `${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest`
+            - `${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest-arm64`
+            - `${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}-arm64`
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
