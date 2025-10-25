@@ -35,20 +35,20 @@ if [ "$LOG_TYPE" = "file" ]; then
 fi
 
 # Utilities outside loop definition
-SLEEP_TIME=`expr "$REFRESH_TIME" \* 60`
+sleep_time=`expr "$REFRESH_TIME" \* 60`
 
 while true; do
     # Utilities inside loop definition
-    CURRENT_DATETIME=$(date -R)
+    current_datetime=$(date -R)
     IP=$(curl -s ifconfig.co)
 
     # Actual update
     OUTPUT=$(curl -s --location-trusted --user "$LOGIN:$PASSWORD" "https://www.ovh.com/nic/update?system=dyndns&hostname=$HOSTNAME&myip=$IP")
     if [ "$LOG_TYPE" = "file" ]; then
-        printf "[%s] - Server replied: %s\n" "$CURRENT_DATETIME" "$OUTPUT" >> "$PATH_LOG"
+        printf "[%s] - Server replied: %s\n" "$current_datetime" "$OUTPUT" >> "$PATH_LOG"
     fi
-    printf "[INFO] [%s] - Server replied: %s\n" "$CURRENT_DATETIME" "$OUTPUT"
+    printf "[INFO] [%s] - Server replied: %s\n" "$current_datetime" "$OUTPUT"
     printf "[INFO] [%s] - Sleeping for %s minutes...\n" "$REFRESH_TIME"
-    sleep "$SLEEP_TIME"
+    sleep "$sleep_time"
 done
 exit 0
