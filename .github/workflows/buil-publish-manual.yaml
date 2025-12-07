@@ -108,7 +108,6 @@ jobs:
       # This will only write to the public Rekor transparency log when the Docker repository is public to avoid leaking data.
       # https://github.com/sigstore/cosign
       - name: Sign the published Docker image
-      - name: Sign the published Docker image
         run: |
           cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
