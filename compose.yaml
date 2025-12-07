@@ -10,5 +10,5 @@ services:
       LOG_TYPE: 'file'
       REFRESH_TIME: 5 #m
     volumes:
-      - /srv/docker/log/net-sec-stack/yourdomain-ddns:/var/log/scripts
+      - ./log/yourdomain-ddns:/var/log/app #mounting a folder because I will implement log rotation in the future
       - /etc/localtime:/etc/localtime:ro

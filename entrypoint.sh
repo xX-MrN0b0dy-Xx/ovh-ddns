@@ -29,8 +29,8 @@ printf "[INFO] [%s] - Initialization\n" "$(date -R)"
 
 # Log initialization
 if [ "$LOG_TYPE" = "file" ]; then
-    mkdir -p "/var/log/scripts"
-    PATH_LOG="/var/log/scripts/ovh_dynhost_updater.log"
+    mkdir -p "/var/log/app"
+    PATH_LOG="/var/log/app/ovh_dynhost_updater.log"
     touch "$PATH_LOG" #create `.log` if not present yet
 fi
 
